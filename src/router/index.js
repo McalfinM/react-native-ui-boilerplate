@@ -10,6 +10,15 @@ import Login from '../pages/auth/login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DetailPost from '../pages/home/detailPost';
 import DetailRemas from '../pages/home/detailRemas';
+import Settings from '../pages/account/settings';
+import MyPost from '../pages/account/post/myPost';
+import EditPost from '../pages/account/post/editPost';
+import RegistrationMemberList from '../pages/account/registerMember/registrationMemberList';
+import DetailMember from '../pages/account/registerMember/detailMember';
+import RegisterMember from '../pages/home/registerMember';
+import DetailEvent from '../pages/home/detailEvent';
+import RegisterRemas from '../pages/auth/registerRemas';
+import RegisterUser from '../pages/auth/registerUser';
 
 
 const Stack = createStackNavigator();
@@ -67,6 +76,9 @@ const Router = () => {
                             <Stack.Screen name='MainApp' component={MainApp} options={{ headerShown: false }} />
                             <Stack.Screen name='DetailPost' component={DetailPost} options={{ headerShown: false }} />
                             <Stack.Screen name='DetailRemas' component={DetailRemas} options={{ headerShown: false }} />
+                            <Stack.Screen name='RegisterRemas' component={RegisterRemas} options={{ headerShown: false }} />
+                            <Stack.Screen name='RegisterUser' component={RegisterUser} options={{ headerShown: false }} />
+                            <Stack.Screen name='DetailEvent' component={DetailEvent} options={{ headerShown: false }} />
                             <Stack.Screen name='AuthApp' component={AuthApp} options={{ headerShown: false, gestureEnabled: false }} />
                         </>
 
@@ -76,6 +88,13 @@ const Router = () => {
                                 <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
                                 <Stack.Screen name='DetailPost' component={DetailPost} options={{ headerShown: false }} />
                                 <Stack.Screen name='DetailRemas' component={DetailRemas} options={{ headerShown: false }} />
+                                <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
+                                <Stack.Screen name='MyPost' component={MyPost} options={{ headerShown: false }} />
+                                <Stack.Screen name='EditPost' component={EditPost} options={{ headerShown: false }} />
+                                <Stack.Screen name='RegistrationMemberList' component={RegistrationMemberList} options={{ headerShown: false }} />
+                                <Stack.Screen name='DetailMember' component={DetailMember} options={{ headerShown: false }} />
+                                <Stack.Screen name='RegisterMember' component={RegisterMember} options={{ headerShown: false }} />
+                                <Stack.Screen name='DetailEvent' component={DetailEvent} options={{ headerShown: false }} />
                                 <Stack.Screen name='MainApp' component={MainApp} options={{ headerShown: false }} />
                             </>
                         )}

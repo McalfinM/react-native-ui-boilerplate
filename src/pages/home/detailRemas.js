@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Button, Dimensions, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { Card } from 'react-native-shadow-cards'
 import { HeaderWithBackButton } from '../../components/header'
 import SliderRemas from '../../components/remasComponent/slider'
@@ -9,9 +9,15 @@ import { InputForm } from '../../components/form'
 import { Divider } from 'react-native-elements/dist/divider/Divider'
 import RemasChart from '../../components/remasComponent/remasChart'
 import RemasListPost from '../../components/remasComponent/remasListPost'
+import { useNavigation } from '@react-navigation/native'
 
 const DetailRemas = (slug) => {
+    const handleScroll = (event) => {
+        console.log(event.nativeEvent.contentOffset.y);
+    }
+    const navigation = useNavigation()
     return (
+
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
 
             <HeaderWithBackButton placement="center" text="Detail Post" />
@@ -40,37 +46,34 @@ const DetailRemas = (slug) => {
                     <Text style={{ textAlign: 'center', fontWeight: "bold" }}>Deskripsi</Text>
                     <Text style={{ textAlign: 'center' }}>Ikatan Remaja Masjid AR-Rahmah</Text>
 
-                    <Button title="Daftar Sebagai Anggota IRMA" />
+                    <Button title="Daftar Sebagai Anggota IRMA" onPress={() => navigation.navigate('RegisterMember')} />
                 </Card>
             </View>
 
             <RemasChart />
+            <RemasListPost />
 
-            <ScrollView style={{ height: 500, marginBottom: 10, marginTop: 10 }} pagingEnabled>
-                <RemasListPost />
-            </ScrollView>
-            <View style={{ alignItems: 'center' }}>
-                <Text>Komentar Mereka Tentang IRMA</Text>
-                <Card style={styles.commentCard}>
-                    <View>
-                        <InputForm autoCapitalize="none" placeholder="Tulis Komentar lu" />
-                    </View>
-                    <View>
+            <View style={{ marginTop: 10 }}>
+                <View style={{ alignItems: 'center' }}>
+                    <Text>Komentar Mereka Tentang IRMA</Text>
+                    <Card style={styles.commentCard}>
+                        <View>
+                            <InputForm autoCapitalize="none" placeholder="Tulis Komentar lu" />
+                        </View>
+                        <View>
 
-                        <Text>Alistya</Text>
-                        <Text>wah keren ilmunya</Text>
-                        <Divider style={{ marginBottom: 5 }} color="green" />
-                        <Text>Alistya</Text>
-                        <Text>apaan itu</Text>
-                        <Divider style={{ marginBottom: 5 }} color="green" />
-                    </View>
+                            <Text>Alistya</Text>
+                            <Text>wah keren ilmunya</Text>
+                            <Divider style={{ marginBottom: 5 }} color="green" />
+                            <Text>Alistya</Text>
+                            <Text>apaan itu</Text>
+                            <Divider style={{ marginBottom: 5 }} color="green" />
+                        </View>
 
-                </Card>
+                    </Card>
+                </View>
             </View>
-
         </ScrollView>
-
-
     )
 }
 

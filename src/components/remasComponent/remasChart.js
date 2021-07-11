@@ -13,17 +13,18 @@ const RemasChart = () => {
         labels: ["2015", "2016", "2017", "2018", "2019", "2020"],
         datasets: [
             {
-                data: [Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100],
+                data: [
+                    Math.random() * 1000,
+                    Math.random() * 1000,
+                    Math.random() * 1000,
+                    Math.random() * 1000,
+                    Math.random() * 1000,
+                    1],
                 color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
                 strokeWidth: 2 // optional
             }
         ],
-        legend: ["Rainy Days"] // optional
+        legend: ["Data Zakat / tahun (satuan ribu)"] // optional
     };
     const chartConfig = {
         backgroundGradientFrom: "#FFFFFF",
@@ -33,7 +34,7 @@ const RemasChart = () => {
         color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         strokeWidth: 2, // optional, default 3
         barPercentage: 0.5,
-        useShadowColorFromDataset: false // optional
+        useShadowColorFromDataset: true // optional
     };
     return (
         <View style={styles.componentCard}>

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useState } from 'react'
-import { Image, StyleSheet, Text, View, NativeModules } from 'react-native'
+import { Image, StyleSheet, Text, View, NativeModules, TouchableOpacity } from 'react-native'
 import { ButtonPrimary, InputForm } from '../../components/form'
 import { useNavigation } from '@react-navigation/native'
 import { loginProcess } from '../../api/auth'
@@ -20,7 +20,7 @@ const Login = ({ navigate }) => {
         await loginProcess(data)
             .then(response => {
                 AsyncStorage.setItem('token', response.data.token)
-                alert('sudah login')
+                alert('Selamat Datang')
                 navigation.navigate('AuthApp', { screen: 'Profile' })
             })
             .catch((error) => {
@@ -40,6 +40,13 @@ const Login = ({ navigate }) => {
                 <InputForm autoCapitalize="none" value={email} placeholder='Username' onChangeText={(e) => setEmail(e)} />
                 <InputForm value={password} secure={true} placeholder='Password' onChangeText={(e) => setPassword(e)} />
                 <ButtonPrimary title="Login" onPress={handleSubmit} />
+                <TouchableOpacity style={{ marginTop: 10 }} onPress={() => navigation.navigate('RegisterRemas')}>
+                    <Text style={{ textAlign: 'center', borderBottomWidth: 1 }}>Registrasikan Remaja Masjid Anda Di sini</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ marginTop: 10 }} onPress={() => navigation.navigate('RegisterUser')}>
+                    <Text style={{ textAlign: 'center' }}>Registrasi Sebagai User</Text>
+                </TouchableOpacity>
             </View>
         </View>
 

@@ -1,7 +1,5 @@
 import React from 'react'
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ToastAndroid } from 'react-native'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 const InputForm = ({ value, placeholder, onChangeText, secure, autoCapitalize }) => {
     return (
         <View>
