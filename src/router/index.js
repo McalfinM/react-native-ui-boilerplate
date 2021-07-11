@@ -19,6 +19,7 @@ import RegisterMember from '../pages/home/registerMember';
 import DetailEvent from '../pages/home/detailEvent';
 import RegisterRemas from '../pages/auth/registerRemas';
 import RegisterUser from '../pages/auth/registerUser';
+import CreatePost from '../pages/account/post/cretePost';
 
 
 const Stack = createStackNavigator();
@@ -95,6 +96,7 @@ const Router = () => {
                                 <Stack.Screen name='DetailMember' component={DetailMember} options={{ headerShown: false }} />
                                 <Stack.Screen name='RegisterMember' component={RegisterMember} options={{ headerShown: false }} />
                                 <Stack.Screen name='DetailEvent' component={DetailEvent} options={{ headerShown: false }} />
+                                <Stack.Screen name='CreatePost' component={CreatePost} options={{ headerShown: false }} />
                                 <Stack.Screen name='MainApp' component={MainApp} options={{ headerShown: false }} />
                             </>
                         )}

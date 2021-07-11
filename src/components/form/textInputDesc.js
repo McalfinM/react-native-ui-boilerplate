@@ -10,6 +10,7 @@ const TextInputDescription = ({ value, placeholder, onChangeText, autoCapitalize
                 numberOfLines={12}
                 errorStyle={{ color: 'red' }}
                 textAlignVertical="top"
+
             />
         </View>
     )

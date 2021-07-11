@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dimensions, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Button, Dimensions, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useFonts } from 'expo-font'
 import { useNavigation } from '@react-navigation/native'
 import { HeaderWithBackButton } from '../../../components/header'
@@ -20,6 +20,7 @@ const MyPost = () => {
     return (
         <ScrollView>
             <HeaderWithBackButton placement="center" text="My Post" />
+            <Button title="Create Post" onPress={() => navigation.navigate('CreatePost')} />
             <View style={styles.row}>
 
                 <View style={styles.card}>
