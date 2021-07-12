@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Image, ScrollView, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import Hello from '../../assets/image/hello'
 import Share from '../../assets/image/share'
@@ -6,10 +6,15 @@ import Profile from '../../assets/image/profile'
 import { useNavigation } from '@react-navigation/native'
 
 
+
 const ListRemas = () => {
+
+
+
     const { width } = Dimensions.get("window")
     const height = width * 0.6
     const navigation = useNavigation()
+
     return (
         <View style={{ width, height, backgroundColor: '#FFFFFF', margin: 10, borderRadius: 20 }}>
             <Text>List Remaja Masjid</Text>

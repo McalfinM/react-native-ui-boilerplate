@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, NativeModules } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -6,8 +6,19 @@ import { faArrowCircleRight, faArrowRight, faCog, faComment, faDoorOpen, faEdit,
 import { faSteam } from '@fortawesome/free-brands-svg-icons'
 import { logout } from '../../helpers/asyncstorage'
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Divider } from 'react-native-elements/dist/divider/Divider'
+import { LISTROLES } from '../../helpers/roles'
 const ListItemAuth = () => {
     const navigation = useNavigation()
+    const [roles, setRoles] = useState('')
+    useEffect(() => {
+        async function checkRoles() {
+            await AsyncStorage.getItem('roles')
+                .then(data => setRoles(data))
+        }
+        checkRoles()
+    }, [])
     const handleLogout = async () => {
         logout(() => {
             navigation.navigate('MainApp', { screen: 'Home' })
@@ -23,20 +34,25 @@ const ListItemAuth = () => {
                 </ListItem.Content>
                 <FontAwesomeIcon icon={faArrowCircleRight} />
             </ListItem>
-            <ListItem bottomDivider onPress={() => navigation.navigate('MyPost')}>
-                <FontAwesomeIcon icon={faNewspaper} />
-                <ListItem.Content>
-                    <ListItem.Title>Postingan Ku</ListItem.Title>
-                </ListItem.Content>
-                <FontAwesomeIcon icon={faArrowCircleRight} />
-            </ListItem>
-            <ListItem bottomDivider onPress={() => navigation.navigate('RegistrationMemberList')}>
-                <FontAwesomeIcon icon={faUserPlus} />
-                <ListItem.Content>
-                    <ListItem.Title>Pendaftaran Anggota</ListItem.Title>
-                </ListItem.Content>
-                <FontAwesomeIcon icon={faArrowCircleRight} />
-            </ListItem>
+            {roles.includes(LISTROLES.REMAS) === false ? (<Divider />) : (
+                <>
+                    <ListItem bottomDivider onPress={() => navigation.navigate('MyPost')}>
+                        <FontAwesomeIcon icon={faNewspaper} />
+                        <ListItem.Content>
+                            <ListItem.Title>Postingan Ku</ListItem.Title>
+                        </ListItem.Content>
+                        <FontAwesomeIcon icon={faArrowCircleRight} />
+                    </ListItem>
+                    <ListItem bottomDivider onPress={() => navigation.navigate('RegistrationMemberList')}>
+                        <FontAwesomeIcon icon={faUserPlus} />
+                        <ListItem.Content>
+                            <ListItem.Title>Pendaftaran Anggota</ListItem.Title>
+                        </ListItem.Content>
+                        <FontAwesomeIcon icon={faArrowCircleRight} />
+                    </ListItem>
+                </>
+            )}
+
             <ListItem bottomDivider onPress={() => navigation.navigate('Settings')}>
                 <FontAwesomeIcon icon={faEdit} />
                 <ListItem.Content>

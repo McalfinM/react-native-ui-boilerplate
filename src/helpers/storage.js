@@ -9,6 +9,6 @@ export const getLocalStorage = async (key) => {
     return await asyncStorage.getItem(key)
 }
 
-export const deleteLocalstorage = async (key) => {
-    await asyncStorage.multiRemove([key])
+export const deleteLocalstorage = async (key, roles) => {
+    await asyncStorage.multiRemove([key, roles])
 }

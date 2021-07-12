@@ -14,7 +14,7 @@ export const isAuthenticated = async () => {
 }
 
 export const logout = (next) => {
-    deleteLocalstorage('token')
+    deleteLocalstorage('token', 'roles')
 
     next()
 }

@@ -2,7 +2,7 @@ import { BASE_URL, cloud_name, cloud_url, upload_preset } from '../helpers/confi
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export const loadPostByRemas = async (limit, page) => {
-    console.log(limit, page)
+
     const response = await axios.get(BASE_URL + `/posts?limit=${limit}&page=${page}`);
 
     return response
@@ -10,6 +10,12 @@ export const loadPostByRemas = async (limit, page) => {
 
 export const getAllCategory = async () => {
     const response = await axios.get(BASE_URL + '/category')
+
+    return response
+}
+
+export const getDetailPost = async (slug) => {
+    const response = await axios.get(BASE_URL + '/posts/' + slug)
 
     return response
 }

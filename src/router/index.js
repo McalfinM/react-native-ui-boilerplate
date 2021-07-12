@@ -20,6 +20,7 @@ import DetailEvent from '../pages/home/detailEvent';
 import RegisterRemas from '../pages/auth/registerRemas';
 import RegisterUser from '../pages/auth/registerUser';
 import CreatePost from '../pages/account/post/cretePost';
+import { useNavigation } from '@react-navigation/native'
 
 
 const Stack = createStackNavigator();
@@ -58,15 +59,14 @@ const Router = () => {
             setLoading(false)
         }, 2000)
         async function checkAuth() {
-            await AsyncStorage.getItem('token')
+            await AsyncStorage.getItem('user')
                 .then(data => {
                     setAuth(data)
+
                 })
         }
         checkAuth()
     }, [])
-    console.log(auth, 'ini auth')
-
     return (
         <Stack.Navigator>
             {
@@ -81,6 +81,8 @@ const Router = () => {
                             <Stack.Screen name='RegisterUser' component={RegisterUser} options={{ headerShown: false }} />
                             <Stack.Screen name='DetailEvent' component={DetailEvent} options={{ headerShown: false }} />
                             <Stack.Screen name='AuthApp' component={AuthApp} options={{ headerShown: false, gestureEnabled: false }} />
+                            <Stack.Screen name='MyPost' component={MyPost} options={{ headerShown: false }} />
+                            <Stack.Screen name='CreatePost' component={CreatePost} options={{ headerShown: false }} />
                         </>
 
                     ) : (

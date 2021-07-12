@@ -18,8 +18,15 @@ const Login = ({ navigate }) => {
             alert('invalid email or password')
         }
         await loginProcess(data)
-            .then(response => {
-                AsyncStorage.setItem('token', response.data.token)
+            .then(async (response) => {
+                console.log(response.data)
+                try {
+                    await AsyncStorage.setItem('token', response.data.token);
+                    await AsyncStorage.setItem('roles', JSON.stringify(response.data.user.roles))
+                    await AsyncStorage.setItem('uuid', JSON.stringify(response.data.user.uuid))
+                } catch (error) {
+                    console.log(error)
+                }
                 alert('Selamat Datang')
                 navigation.navigate('AuthApp', { screen: 'Profile' })
             })

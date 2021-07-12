@@ -9,9 +9,11 @@ import ListRemas from './listRemas'
 import { useNavigation } from '@react-navigation/native'
 import { logout } from '../../helpers/asyncstorage'
 import CodePush from 'react-native-code-push';
+import { LISTROLES } from '../../helpers/roles'
 const Home = () => {
     const [auth, setAuth] = useState('')
     const token = auth
+    const [roles, setRoles] = useState('')
     useEffect(() => {
 
         async function checkAuth() {
@@ -21,12 +23,6 @@ const Home = () => {
         }
         checkAuth()
     }, [])
-
-    if (token) {
-        console.log('hao')
-    } else {
-        console.log('masuk')
-    }
     return (
         <ScrollView style={styles.container}>
             <View style={styles.containerFluid}>
