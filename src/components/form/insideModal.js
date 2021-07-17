@@ -2,14 +2,9 @@ import React from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const InsideModal = (props) => {
-    const closeModal = (bool, data) => {
+    const closeModal = async (bool, data) => {
         props.changeModalVisible(bool)
         props.setData(data)
-        if (data === 'ya') {
-            console.log('delete')
-        } else {
-            console.log('tidak')
-        }
     }
     return (
         <TouchableOpacity

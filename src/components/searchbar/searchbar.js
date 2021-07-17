@@ -2,11 +2,11 @@ import React from 'react'
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ToastAndroid } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-const SearchBar = ({ value }) => {
+const SearchBar = ({ value, onChangeText, onPress }) => {
     return (
         <View style={{ position: 'relative' }}>
-            <TextInput style={styles.card} placeholder="What do you want ?" value={value} />
-            <TouchableOpacity style={styles.icon}>
+            <TextInput style={styles.card} placeholder="What do you want ?" value={value} onChangeText={onChangeText} />
+            <TouchableOpacity onPress={onPress} style={styles.icon}>
                 <FontAwesomeIcon size={20} icon={faSearch} />
             </TouchableOpacity>
         </View>

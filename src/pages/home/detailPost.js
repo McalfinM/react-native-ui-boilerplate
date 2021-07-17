@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import { HeaderWithBackButton } from '../../components/header'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faHeart, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -61,7 +61,7 @@ const DetailPost = (slug) => {
         }
         return await createComment(data)
             .then(result => {
-                alert('komentar berhasil')
+                ToastAndroid.show('Komentar berhasil', ToastAndroid.SHORT)
                 setComment('')
                 renderPost()
             }).then(error => {
@@ -84,10 +84,6 @@ const DetailPost = (slug) => {
             renderPost()
         })
     }
-
-    console.log(likeIconData, 'ini like')
-    console.log(uuid, 'ini uuid')
-
     return (
         <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
             <View>
@@ -122,7 +118,7 @@ const DetailPost = (slug) => {
                         <Card style={styles.card}>
                             <View style={{ alignItems: 'center' }}>
                                 <Text style={{ fontWeight: "bold", fontSize: 15 }}> {dataPost ? dataPost.title : (<LoadingIndicator color="green" size="small" />)}</Text>
-                                <Text style={{ fontWeight: "bold", fontSize: 10 }}>{likes.length}</Text>
+                                <Text style={{ fontWeight: "bold", fontSize: 10 }}>{likes.length} likes</Text>
                                 <Text style={styles.text}>
                                     {dataPost ? dataPost.content : (<LoadingIndicator color="green" size="small" />)}
                                 </Text>

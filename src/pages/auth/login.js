@@ -1,12 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View, NativeModules, TouchableOpacity } from 'react-native'
 import { ButtonPrimary, InputForm } from '../../components/form'
 import { useNavigation } from '@react-navigation/native'
-import { loginProcess } from '../../api/auth'
+import { loginProcess, logoutTimer } from '../../api/auth'
+import { logout } from '../../helpers/asyncstorage'
 
 const Login = ({ navigate }) => {
     const navigation = useNavigation()
+
+    useEffect(() => {
+
+    }, [])
     const [email, setEmail] = useState('user@mail.com')
     const [password, setPassword] = useState('password')
     const [formData, setFormData] = useState({})

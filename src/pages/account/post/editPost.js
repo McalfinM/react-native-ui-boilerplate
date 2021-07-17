@@ -1,25 +1,118 @@
-import React from 'react'
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { InputForm, PickerForm } from '../../../components/form'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Button, Image, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { findOnePost, getAllCategory, updatePost } from '../../../api/posts'
+import { InputForm, PickerForm, TextInputDescription } from '../../../components/form'
 import { HeaderWithSaveButton } from '../../../components/header'
+import * as ImagePicker from 'expo-image-picker'; // bu asagidaki raeact-native - expo ucun img pickere gore lazimdir
 
 const EditPost = (uuid) => {
+
+    useEffect(() => {
+        getDetailPost()
+        getCategory()
+    }, [])
+
+    const [detailPost, setDetailPost] = useState({
+        title: '',
+        content: '',
+        category: {
+            uuid: '',
+            name: ''
+        },
+        image: '',
+        cloudinary_id: '',
+        uuid: ''
+    })
+
+    const [dataCategory, setCategoryData] = useState([])
+    const [imagePreview, setImagePreview] = useState('')
+    const [currentImage, setCurrentImage] = useState('')
+    const [loading, setLoading] = useState(false)
+    const getDetailPost = async () => {
+        const data = uuid.route.params.uuid
+        return await findOnePost(data).then(data => {
+
+            setDetailPost(data.data)
+            setImagePreview(data.data.image)
+            setCurrentImage(data.data.image)
+        }
+
+        )
+
+    }
+    const getCategory = async () => {
+        return await getAllCategory()
+            .then(data => {
+                setCategoryData(data.data.data)
+            })
+    }
+
+    const pickFromGalary = async () => { //picker from galery code
+
+        let data = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.5
+        });
+        if (!data.cancelled) {
+            let newFile = {
+                uri: data.uri,
+                type: `remas/${data.uri.split(".")[1]}`,
+                name: `remas.${data.uri.split(".")[1]}`
+            };
+            setImagePreview(data.uri);
+            setDetailPost({ ...detailPost, image: newFile })
+        }
+
+    }
+
+    const handlePost = async () => {
+        const { title, content, image, cloudinary_id } = detailPost
+        setLoading(true)
+        let category = detailPost.category.uuid
+        const data = { title, content, category, image, cloudinary_id }
+        let uuidData = uuid.route.params.uuid
+        if (!title || !content || !category) {
+            alert('lengkapi semua data')
+        } else {
+            await updatePost(uuidData, data, currentImage)
+                .then(response => {
+                    alert('Post Created')
+                    setLoading(false)
+                    setDetailPost({ ...detailPost })
+                    getDetailPost()
+                }).catch(error => {
+                    console.log(error.response)
+                    // const show = error.response.data.map(v => {
+                    //     ToastAndroid.show(v.message, ToastAndroid.SHORT)
+                    // })
+                    setLoading(false)
+                })
+        }
+
+    }
+
+    const { title, content, category, image } = detailPost
     return (
         <ScrollView style={{ backgroundColor: "white" }}>
             <View>
-                <HeaderWithSaveButton placement="center" text="Settings" />
+                <HeaderWithSaveButton loading={loading} onPress={() => handlePost()} buttontxt="Save" placement="center" text="Settings" />
 
-                <InputForm placeholder="Nama Singkat" />
-                <InputForm placeholder="Nama Lengkap" />
-                <InputForm placeholder="Visi" />
+                <InputForm placeholder="Title" value={title} onChangeText={(e) => setDetailPost({ ...detailPost, title: e })} />
                 <Text>Kategori</Text>
-                <PickerForm />
-                <InputForm placeholder="Description" />
+                <PickerForm data={dataCategory} selectedValue={category.uuid} onValueChange={(itemValue, itemIndex) => setDetailPost({ ...detailPost, category: { uuid: itemValue } })} />
+                <TextInputDescription placeholder="Content" value={content} onChangeText={(e) => setDetailPost({ ...detailPost, content: e })} />
                 <View style={styles.container}>
-                    <Image style={styles.image} source={{ uri: 'https://scontent-sin6-3.cdninstagram.com/v/t51.2885-15/e35/101467383_594312047871676_5824187634397713530_n.jpg?tp=1&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_cat=104&_nc_ohc=f9acHSXd4MUAX9C-J6K&edm=AP_V10EBAAAA&ccb=7-4&oh=0e8a406e78112df0ec6610522f696c13&oe=60F03509&_nc_sid=4f375e' }} />
+                    <Image style={styles.image} source={{ uri: imagePreview ? imagePreview : image }} />
+                </View>
+
+                <View style={styles.modalButtonWrapper}>
+                    <Button title="Gallery" mode="contained" onPress={() => pickFromGalary()} />
                 </View>
 
             </View>
+
         </ScrollView>
     )
 }

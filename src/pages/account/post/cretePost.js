@@ -18,8 +18,6 @@ const CreatePost = () => {
     const [image, setImage] = useState()
     const [imagePreview, setImagePreview] = useState()
     const [loading, setLoading] = useState(false)
-
-    console.log(category, 'ini category')
     const getCategory = async () => {
         return await getAllCategory()
             .then(data => {
@@ -28,24 +26,23 @@ const CreatePost = () => {
     }
 
     const pickFromGalary = async () => { //picker from galery code
-        const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        if (granted) {
-            let data = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 0.5
-            });
-            if (!data.cancelled) {
-                let newFile = {
-                    uri: data.uri,
-                    type: `remas/${data.uri.split(".")[1]}`,
-                    name: `remas.${data.uri.split(".")[1]}`
-                };
-                setImagePreview(data.uri);
-                setImage(newFile)
-            }
-        } else { Alert.alert('Siz bu funksiyani isletmek ucun icaze vermelisiz'); }
+
+        let data = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.5
+        });
+        if (!data.cancelled) {
+            let newFile = {
+                uri: data.uri,
+                type: `remas/${data.uri.split(".")[1]}`,
+                name: `remas.${data.uri.split(".")[1]}`
+            };
+            setImagePreview(data.uri);
+            setImage(newFile)
+        }
+
     }
 
     const handlePost = async () => {

@@ -1,16 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-
-
+import { findMyProfile } from '../../api/profile'
+import { useNavigation } from '@react-navigation/native'
 const MainProfile = () => {
+    const navigation = useNavigation()
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            getMyProfile()
+
+        });
+        unsubscribe
+        getMyProfile()
+    }, [])
+    const [myProfile, setMyProfiile] = useState({
+        idul_adha: null,
+        main_information: {
+            image: '',
+            nickname: '',
+            full_name: ''
+        },
+        ramadhan: null,
+        slug: '',
+    })
+    const getMyProfile = async () => {
+        return await findMyProfile().then(data => setMyProfiile(data.data))
+    }
     return (
         <View style={{ marginTop: 10 }}>
             <View style={styles.card}>
                 <View style={styles.row}>
-                    <Image style={styles.image} source={require('../../assets/image/Remas.png')} />
-                    <Text style={styles.text}>IRMA
-                    {"\n"}
-                    Ikatan Remaja Masjid AR-Rahmah
+                    <Image style={styles.image} source={{ uri: myProfile.main_information ? myProfile.main_information.image : 'https://res.cloudinary.com/dcyohew0h/image/upload/v1626325005/posts/roxlkp46kp0sk9oqb3jg.png' }} />
+                    <Text style={styles.text}>{myProfile.main_information ? myProfile.main_information.nickname : 'none'}
+                        {"\n"}
+                        {!myProfile.main_information ? (<Text> not describe </Text>) : myProfile.main_information.full_name}
                     </Text>
                 </View>
             </View>

@@ -1,9 +1,11 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Header } from 'react-native-elements'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faArrowLeft, faSearch } from '@fortawesome/free-solid-svg-icons'
-const HeaderWithSaveButton = ({ placement, text, buttontxt }) => {
+import { useNavigation } from '@react-navigation/native'
+const HeaderWithSaveButton = ({ placement, text, buttontxt, loading, onPress }) => {
+    const navigation = useNavigation()
     return (
         <View>
             <Header
@@ -13,14 +15,24 @@ const HeaderWithSaveButton = ({ placement, text, buttontxt }) => {
                 }
                 placement={placement}
                 leftComponent={
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </TouchableOpacity>
                 }
                 rightComponent={
-                    <TouchableOpacity>
-                        <Text style={{ marginRight: 5, fontWeight: 'bold' }}>{buttontxt}</Text>
-                    </TouchableOpacity>
+                    <>
+                        {loading ? (<ActivityIndicator
+                            animating
+                            color="green"
+                            size="small"
+
+                        />) : (<TouchableOpacity
+                            onPress={onPress}
+                        >
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Save</Text>
+                        </TouchableOpacity>
+                            )}
+                    </>
                 }
             />
         </View>

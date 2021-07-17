@@ -1,23 +1,64 @@
-import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { HeaderBar } from '../../components/header'
 import MainProfile from './mainProfile'
 import ListItemAuth from './listItem'
+import { useNavigation } from '@react-navigation/native'
 
 const Profile = () => {
-    return (
-        <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
+    const navigation = useNavigation()
+    const [refresh, setRefresh] = useState(false)
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setRefresh(true)
+            console.log(refresh, 'in index')
+            setRefresh(false)
+            console.log(refresh, 'in index')
+        });
+
+        const backAction = () => {
+            Alert.alert("Hold on!", "Are you sure you want to exit?", [
+                {
+                    text: "Cancel",
+                    onPress: () => null,
+                    style: "cancel"
+                },
+                { text: "YES", onPress: () => BackHandler.exitApp() }
+            ]);
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+        unsubscribe
+        return () => backHandler.remove();
+
+    }, []);
+
+
+
+    const showIndex = () => {
+        return (
             <View>
                 <HeaderBar
                     text="Profile"
                     placement="center"
                 />
-                <MainProfile />
+                <MainProfile refresh={refresh} />
                 <ListItemAuth />
             </View>
+        )
+    }
+
+    return (
+        <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
+            {showIndex()}
         </ScrollView>
     )
 }
+
 
 export default Profile
 

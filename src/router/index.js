@@ -83,12 +83,15 @@ const Router = () => {
                             <Stack.Screen name='AuthApp' component={AuthApp} options={{ headerShown: false, gestureEnabled: false }} />
                             <Stack.Screen name='MyPost' component={MyPost} options={{ headerShown: false }} />
                             <Stack.Screen name='CreatePost' component={CreatePost} options={{ headerShown: false }} />
+                            <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
+                            <Stack.Screen name='EditPost' component={EditPost} options={{ headerShown: false }} />
                         </>
 
                     ) : (
                             <>
                                 <Stack.Screen name='AuthApp' component={AuthApp} options={{ headerShown: false, gestureEnabled: false }} />
                                 <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
+                                <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false, gestureEnabled: false }} />
                                 <Stack.Screen name='DetailPost' component={DetailPost} options={{ headerShown: false }} />
                                 <Stack.Screen name='DetailRemas' component={DetailRemas} options={{ headerShown: false }} />
                                 <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />

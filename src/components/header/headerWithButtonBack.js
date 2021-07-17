@@ -3,7 +3,10 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { Header } from 'react-native-elements'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faArrowLeft, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { useNavigation } from '@react-navigation/native'
+
 const HeaderWithButtonBack = ({ placement, text }) => {
+    const navigation = useNavigation()
     return (
         <View>
             <Header
@@ -13,7 +16,7 @@ const HeaderWithButtonBack = ({ placement, text }) => {
                 }
                 placement={placement}
                 leftComponent={
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()} >
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </TouchableOpacity>
                 }
