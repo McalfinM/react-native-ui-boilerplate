@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useFonts } from 'expo-font'
 import { useNavigation } from '@react-navigation/native'
@@ -6,146 +6,75 @@ import { HeaderWithBackButton } from '../../../components/header'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEdit, faInfo, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons'
 import InsideModal from '../../../components/form/insideModal'
+import { fetchRegisterMemberEveryRemas } from '../../../api/registerMemberRemas'
 
 const RegistrationMemberList = () => {
+
+    useEffect(() => {
+        fetchAllRegister()
+    }, [])
     const navigation = useNavigation();
     const [visible, setVisible] = useState(false)
     const [choose, setChoose] = useState()
+    const [dataRegister, setDataRegister] = useState([{
+        address: "",
+        birthday: "",
+        created_at: "",
+        created_by: {
+            uuid: "",
+            name: ""
+        },
+        email: "",
+        full_name: "",
+        handphone: "",
+        image: "",
+        updated_at: "",
+        user_uuid: "",
+        uuid: "",
+    }])
     const { width } = Dimensions.get("window")
     const modalHandle = (bool) => (
         setVisible(bool)
     )
 
+    const fetchAllRegister = async () => {
+        return await fetchRegisterMemberEveryRemas().then(data => {
+            setDataRegister(data.data.data)
+        })
+    }
+
+    console.log(dataRegister, 'data')
     return (
         <ScrollView>
             <HeaderWithBackButton placement="center" text="List Registration Member" />
             <View style={styles.row}>
+                {
+                    !dataRegister ? (<Text>Tidak ada data</Text>) : (
+                        dataRegister.map((data, index) => (
+                            <View key={index} style={styles.card}>
 
-                <View style={styles.card}>
+                                <TouchableOpacity
+                                    style={{ padding: 5 }}
+                                    onPress={() => navigation.navigate('DetailMember', { uuid: data.uuid })}>
+                                    <Image style={styles.image} source={{ uri: data.image }} />
+                                    <Text style={styles.text}>{data.full_name}</Text>
 
-
-                    <Modal
-                        transparent={true}
-                        visible={visible}
-                        animationType="fade"
-                        onRequestClose={() => modalHandle(false)}
-                    >
-                        <InsideModal
-                            changeModalVisible={modalHandle}
-                            setData={setChoose}
-                        />
-                    </Modal>
-                    <TouchableOpacity
-                        style={{ padding: 5 }}
-                        onPress={() => navigation.navigate('DetailMember', { uuid: 'uuid' })}>
-                        <Image style={styles.image} source={{ uri: 'https://www.w3schools.com/howto/img_avatar2.png' }} />
-                        <Text style={styles.text}>Rania</Text>
-
-                    </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', padding: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('EditPost', { uuid: 'uuid' })}>
-                            <FontAwesomeIcon size={20} style={{ marginRight: 5 }} icon={faInfo} color="blue" />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => modalHandle(true)}>
-                            <FontAwesomeIcon size={20} icon={faTrash} color="red" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                                </TouchableOpacity>
+                                <View style={{ flexDirection: 'row', alignSelf: 'flex-end', padding: 5 }}>
+                                    <TouchableOpacity
+                                        onPress={() => navigation.navigate('EditPost', { uuid: 'uuid' })}>
+                                        <FontAwesomeIcon size={20} style={{ marginRight: 5 }} icon={faInfo} color="blue" />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => modalHandle(true)}>
+                                        <FontAwesomeIcon size={20} icon={faTrash} color="red" />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        ))
 
 
-                <View style={styles.card}>
-                    <TouchableOpacity
-                        style={{ padding: 5 }}
-                        onPress={() => navigation.navigate('DetailMember', { uuid: 'uuid' })}>
-                        <Image style={styles.image} source={{ uri: 'https://www.w3schools.com/howto/img_avatar2.png' }} />
-                        <Text style={styles.text}>Rania</Text>
-
-                    </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', padding: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('EditPost', { uuid: 'uuid' })}>
-                            <FontAwesomeIcon size={20} style={{ marginRight: 5 }} icon={faInfo} color="blue" />
-                        </TouchableOpacity>
-                        <TouchableOpacity >
-                            <FontAwesomeIcon size={20} icon={faTrash} color="red" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    <TouchableOpacity
-                        style={{ padding: 5 }}
-                        onPress={() => navigation.navigate('DetailMember', { uuid: 'uuid' })}>
-                        <Image style={styles.image} source={{ uri: 'https://www.w3schools.com/howto/img_avatar2.png' }} />
-                        <Text style={styles.text}>Rania</Text>
-
-                    </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', padding: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('EditPost', { uuid: 'uuid' })}>
-                            <FontAwesomeIcon size={20} style={{ marginRight: 5 }} icon={faInfo} color="blue" />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FontAwesomeIcon size={20} icon={faTrash} color="red" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.card}>
-                    <TouchableOpacity
-                        style={{ padding: 5 }}
-                        onPress={() => navigation.navigate('DetailMember', { uuid: 'uuid' })}>
-                        <Image style={styles.image} source={{ uri: 'https://www.w3schools.com/howto/img_avatar2.png' }} />
-                        <Text style={styles.text}>Rania</Text>
-
-                    </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', padding: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('EditPost', { uuid: 'uuid' })}>
-                            <FontAwesomeIcon size={20} style={{ marginRight: 5 }} icon={faInfo} color="blue" />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FontAwesomeIcon size={20} icon={faTrash} color="red" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.card}>
-                    <TouchableOpacity
-                        style={{ padding: 5 }}
-                        onPress={() => navigation.navigate('DetailMember', { uuid: 'uuid' })}>
-                        <Image style={styles.image} source={{ uri: 'https://www.w3schools.com/howto/img_avatar2.png' }} />
-                        <Text style={styles.text}>Rania</Text>
-
-                    </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', padding: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('EditPost', { uuid: 'uuid' })}>
-                            <FontAwesomeIcon size={20} style={{ marginRight: 5 }} icon={faInfo} color="blue" />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FontAwesomeIcon size={20} icon={faTrash} color="red" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.card}>
-                    <TouchableOpacity
-                        style={{ padding: 5 }}
-                        onPress={() => navigation.navigate('DetailMember', { uuid: 'uuid' })}>
-                        <Image style={styles.image} source={{ uri: 'https://www.w3schools.com/howto/img_avatar2.png' }} />
-                        <Text style={styles.text}>Rania</Text>
-
-                    </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', alignSelf: 'flex-end', padding: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('EditPost', { uuid: 'uuid' })}>
-                            <FontAwesomeIcon size={20} style={{ marginRight: 5 }} icon={faInfo} color="blue" />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <FontAwesomeIcon size={20} icon={faTrash} color="red" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
+                    )
+                }
 
             </View>
         </ScrollView>

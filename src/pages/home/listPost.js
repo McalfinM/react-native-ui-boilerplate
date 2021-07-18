@@ -6,10 +6,10 @@ import { loadPostByRemas } from '../../api/posts'
 const ListPost = () => {
     useEffect(() => {
 
-        const unsubscribe = navigation.addListener('focus', () => {
-            getAllPost()
-        });
-        unsubscribe
+        // const unsubscribe = navigation.addListener('focus', () => {
+        //     getAllPost()
+        // });
+        // unsubscribe
         getAllPost()
 
     }, [])

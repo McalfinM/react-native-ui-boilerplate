@@ -3,6 +3,7 @@ const BASE_URL = 'http://192.168.1.16:3003/api/v1'
 // const BASE_URL = 'https://remas-api.herokuapp.com/api/v1'
 const upload_preset = 'remaja_masjid'
 const upload_profile = 'remas_profile'
+const upload_register_member_remas = 'register_member_remas'
 const cloud_name = 'dcyohew0h'
 const cloud_url = 'https://api.cloudinary.com/v1_1/dcyohew0h/image/upload'
 const cloud_url_profile = 'https://api.cloudinary.com/v1_1/dcyohew0h'
@@ -17,5 +18,6 @@ export {
     cloud_url,
     cloud_api_key,
     upload_profile,
-    cloud_api_secret
+    cloud_api_secret,
+    upload_register_member_remas
 }

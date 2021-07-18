@@ -21,10 +21,10 @@ const Home = () => {
     const [refresh, setRefresh] = useState(false)
     const [callpost, setCallPost] = useState(false)
     useEffect(() => {
-        // const unsubscribe = navigation.addListener('focus', () => {
-        //     showIndex()
-        // });
-        // unsubscribe
+        const unsubscribe = navigation.addListener('focus', () => {
+            showIndex()
+        });
+        unsubscribe
         async function checkAuth() {
             await AsyncStorage.getItem('token')
                 .then(data => {
@@ -68,9 +68,6 @@ const Home = () => {
             <View style={styles.containerFluid}>
                 <Carousel />
                 <Category />
-                <View style={{ marginTop: 20 }}></View>
-                <Introducing />
-                <View style={{ marginBottom: 20 }}></View>
                 <ListPost />
                 <ListRemas />
                 <ListEvent />

@@ -7,8 +7,8 @@ const Introducing = () => {
         <View style={styles.row}>
             <View style={styles.card}>
                 <Text style={{ alignSelf: 'center', top: 30 }}>Come Join With Us... !!{"\n"}
-    For Teenagers a Better Mosque
-    </Text>
+
+                </Text>
             </View>
             <View style={styles.card}>
                 <AddFriend />

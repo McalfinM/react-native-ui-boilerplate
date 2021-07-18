@@ -15,10 +15,10 @@ const ListRemas = ({ refresh }) => {
     const navigation = useNavigation()
     console.log(refresh, 'ini refresh')
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            fetchAllRemas()
-        });
-        unsubscribe
+        // const unsubscribe = navigation.addListener('focus', () => {
+        //     fetchAllRemas()
+        // });
+        // unsubscribe
         fetchAllRemas()
     }, [])
     const [listRemas, setRemas] = useState([])

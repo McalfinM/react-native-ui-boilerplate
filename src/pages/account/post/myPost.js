@@ -36,7 +36,14 @@ const MyPost = () => {
     return (
         <ScrollView>
             <HeaderWithBackButton placement="center" text="My Post" />
-            <Button title="Create Post" onPress={() => navigation.navigate('CreatePost')} />
+            <View style={styles.row}>
+                <View style={styles.card}>
+                    <Button title="Create Post" onPress={() => navigation.navigate('CreatePost')} />
+                </View>
+                <View style={styles.card}>
+                    <Button color="green" title="Create Event" onPress={() => navigation.navigate('CreatePost')} />
+                </View>
+            </View>
             <View style={styles.row}>
 
                 {
@@ -86,6 +93,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         flexWrap: 'wrap'
+    },
+    rowbutton: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        margin: 5
     },
     text: {
 

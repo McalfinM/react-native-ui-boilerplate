@@ -21,6 +21,7 @@ import RegisterRemas from '../pages/auth/registerRemas';
 import RegisterUser from '../pages/auth/registerUser';
 import CreatePost from '../pages/account/post/cretePost';
 import { useNavigation } from '@react-navigation/native'
+import OnboardingScreen from '../pages/home/onboarding';
 
 
 const Stack = createStackNavigator();
@@ -73,11 +74,12 @@ const Router = () => {
                 loading ? (<Stack.Screen name='Splash' component={Splash} options={{ headerShown: false }} />) :
                     auth === null ? (
                         <>
-
+                            <Tab.Screen name="Remaja Masjid" component={OnboardingScreen} options={{ headerShown: false }} />
                             <Stack.Screen name='MainApp' component={MainApp} options={{ headerShown: false }} />
                             <Stack.Screen name='DetailPost' component={DetailPost} options={{ headerShown: false }} />
                             <Stack.Screen name='DetailRemas' component={DetailRemas} options={{ headerShown: false }} />
                             <Stack.Screen name='RegisterRemas' component={RegisterRemas} options={{ headerShown: false }} />
+                            <Stack.Screen name='RegisterMember' component={RegisterMember} options={{ headerShown: false }} />
                             <Stack.Screen name='RegisterUser' component={RegisterUser} options={{ headerShown: false }} />
                             <Stack.Screen name='DetailEvent' component={DetailEvent} options={{ headerShown: false }} />
                             <Stack.Screen name='AuthApp' component={AuthApp} options={{ headerShown: false, gestureEnabled: false }} />
@@ -85,6 +87,8 @@ const Router = () => {
                             <Stack.Screen name='CreatePost' component={CreatePost} options={{ headerShown: false }} />
                             <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
                             <Stack.Screen name='EditPost' component={EditPost} options={{ headerShown: false }} />
+                            <Stack.Screen name='RegistrationMemberList' component={RegistrationMemberList} options={{ headerShown: false }} />
+                            <Stack.Screen name='DetailMember' component={DetailMember} options={{ headerShown: false }} />
                         </>
 
                     ) : (

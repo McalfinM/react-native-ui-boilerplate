@@ -36,7 +36,6 @@ const DetailRemas = (slug) => {
         async function checkUuid() {
             await AsyncStorage.getItem('uuid')
                 .then(data => {
-                    console.log(data, 'uuid')
                     setUuid(data)
                 })
         }
@@ -73,7 +72,9 @@ const DetailRemas = (slug) => {
         },
         ramadhan: {},
         slug: '',
+        user_uuid: ''
     })
+    console.log(detailRemas.user_uuid)
     const fetchDetailRemas = async () => {
         const data = slug.route.params.slug
         return await getDetailRemas(data)
@@ -144,9 +145,9 @@ const DetailRemas = (slug) => {
                     <Text style={{ textAlign: 'center', fontWeight: "bold" }}>Deskripsi</Text>
                     {!detailRemas.main_information.description ? (<Text style={{ textAlign: 'center', fontWeight: "bold" }}>Deskripsi not describe {"\n"}</Text>
                     ) : (<Text style={{ textAlign: 'center' }}> {detailRemas.main_information.description}{"\n"}</Text>)}
-                    {roles.includes(LISTROLES.REMAS) === false ? (<Button title="Daftar Sebagai Anggota IRMA" onPress={() => navigation.navigate('RegisterMember')} />) : (<Text>
+                    {roles ? roles.includes(LISTROLES.REMAS) === false ? (<Button title="Daftar Sebagai Anggota IRMA" onPress={() => navigation.navigate('RegisterMember', { uuid: detailRemas.user_uuid })} />) : (<Text>
 
-                    </Text>)}
+                    </Text>) : (<Button title="Daftar Sebagai Anggota IRMA" onPress={() => navigation.navigate('RegisterMember', { uuid: detailRemas.user_uuid })} />)}
 
                 </Card>
             </View>
